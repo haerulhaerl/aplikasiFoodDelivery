@@ -5,6 +5,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.example.myapplication.data.ProductPreviewState
 import com.example.myapplication.ui.theme.screen.components.ProductPreviewSection
 
 @Composable
@@ -15,6 +16,9 @@ fun ProductDetailScreen(modifier: Modifier = Modifier
     Column (
         modifier = modifier.verticalScroll(scrollableState)
     ){
-        ProductPreviewSection()
+        ProductPreviewSection(
+            modifier = Modifier,
+            state = ProductPreviewState()
+        )
     }
 }

@@ -30,18 +30,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.myapplication.R
+import com.example.myapplication.data.ProductPreviewState
 import com.example.myapplication.ui.theme.AppTheme
 
 @Composable
 fun ProductPreviewSection(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    state: ProductPreviewState
 ){
     Box(
         modifier = modifier.height(IntrinsicSize.Max)
     ){
-        ProductBackground()
+        ProductBackground(
+            modifier = Modifier.padding(bottom = 450.dp)
+        )
         Content(
-            modifier = Modifier.statusBarsPadding()
+            state = state,
+            modifier = Modifier
+                .statusBarsPadding()
+                .padding(top = 24.dp)
+
         )
     }
 }
@@ -65,7 +73,10 @@ private fun ProductBackground(
 }
 
 @Composable
-private fun Content (modifier: Modifier = Modifier){
+private fun Content (
+    modifier: Modifier = Modifier,
+    state: ProductPreviewState
+){
     ConstraintLayout(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -84,11 +95,20 @@ private fun Content (modifier: Modifier = Modifier){
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
                 .height(256.dp)
-                .constrainAs(productImg){
+                .constrainAs(productImg) {
                     end.linkTo(parent.end)
                     top.linkTo(anchor = actionBar.bottom, margin = 20.dp)
                 }
         )
+        
+        ProductHighlights(
+            highlights = state.highlights,
+            modifier = Modifier.constrainAs(highlight){
+                start.linkTo(anchor = parent.start, margin = 19.dp)
+                top.linkTo(productImg.top)
+            }
+        )
+
     }
 
 }
